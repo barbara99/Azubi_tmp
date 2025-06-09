@@ -4,8 +4,20 @@ import joblib
 
 # === Extract model files if not already extracted ===
 if not os.path.exists("model_rf.pkl"):
-    with zipfile.ZipFile("model_rf.zip", "r") as zip_ref:
-        zip_ref.extractall()
+    if os.path.exists("model_rf.zip"):
+        with zipfile.ZipFile("model_rf.zip", "r") as zip_ref:
+            zip_ref.extract("model_rf.pkl")  # extract only this file
+    else:
+        st.error("❌ 'model.zip' not found. Please upload it to the same directory.")
+        st.stop()
+
+# === Load the model ===
+try:
+    model = joblib.load("model_rf.pkl")
+except Exception as e:
+    st.error(f"❌ Error loading model: {e}")
+    st.stop()
+
 # Load model artifacts
 model = joblib.load("model_rf.pkl")
 scaler = joblib.load("scaler.pkl")
