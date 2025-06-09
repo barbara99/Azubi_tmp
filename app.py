@@ -2,6 +2,10 @@ import streamlit as st
 import pandas as pd
 import joblib
 
+# === Extract model files if not already extracted ===
+if not os.path.exists("model_rf.pkl"):
+    with zipfile.ZipFile("model_rf.zip", "r") as zip_ref:
+        zip_ref.extractall()
 # Load model artifacts
 model = joblib.load("model_rf.pkl")
 scaler = joblib.load("scaler.pkl")
