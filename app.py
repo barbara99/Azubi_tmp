@@ -10,13 +10,21 @@ import os
 def download_model():
     url = "https://huggingface.co/BarbaraAsiamah/model_rf/resolve/main/model_rf.pkl"
     model_path = "model_rf.pkl"
+    
     if not os.path.exists(model_path):
-        with open(model_path, "wb") as f:
-            response = requests.get(url)
-            f.write(response.content)
+        response = requests.get(url)
+        if response.status_code == 200:
+            with open(model_path, "wb") as f:
+                f.write(response.content)
+        else:
+            st.error("Failed to download model from Hugging Face.")
+            st.stop()
+    
     return joblib.load(model_path)
 
+# Load model
 model = download_model()
+
 #model = joblib.load("model_rf.pkl")
 scaler = joblib.load("scaler.pkl")
 expected_features = joblib.load("feature_names.pkl")
