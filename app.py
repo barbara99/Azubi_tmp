@@ -2,24 +2,20 @@ import streamlit as st
 import pandas as pd
 import joblib
 
-# === Extract model files if not already extracted ===
-if not os.path.exists("model_rf.pkl"):
-    if os.path.exists("model_rf.zip"):
-        with zipfile.ZipFile("model_rf.zip", "r") as zip_ref:
-            zip_ref.extract("model_rf.pkl")  # extract only this file
-    else:
-        st.error("❌ 'model.zip' not found. Please upload it to the same directory.")
-        st.stop()
-
-# === Load the model ===
-try:
-    model = joblib.load("model_rf.pkl")
-except Exception as e:
-    st.error(f"❌ Error loading model: {e}")
-    st.stop()
 
 # Load model artifacts
-model = joblib.load("model_rf.pkl")
+@st.cache_resource
+def download_model():
+    url = "https://huggingface.co/BarbaraAsiamah/model_rf/resolve/main/model_rf.pkl"
+    model_path = "model_rf.pkl"
+    if not os.path.exists(model_path):
+        with open(model_path, "wb") as f:
+            response = requests.get(url)
+            f.write(response.content)
+    return joblib.load(model_path)
+
+model = download_model()
+#model = joblib.load("model_rf.pkl")
 scaler = joblib.load("scaler.pkl")
 expected_features = joblib.load("feature_names.pkl")
 
