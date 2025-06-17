@@ -1,7 +1,3 @@
-Great — here’s a **detailed and original README** tailored to your own work while matching the professionalism and clarity you admire. You can paste this into your `README.md` file and customize further if needed:
-
----
-
 # 🔍 TERM DEPOSIT SUBSCRIPTION PREDICTION
 
 **Azubi Africa - Talent Mobility Program Assessment**
@@ -152,20 +148,6 @@ streamlit run app.py
 
 Special care was taken to address **class imbalance**, particularly since subscriptions (`y = yes`) were relatively rare in the dataset.
 
----
-
-## 💡 KEY INSIGHTS
-
-* Clients contacted during **certain months** like March or September had higher conversion rates.
-* **Contact method** (e.g., cellular vs telephone) had an effect on subscription likelihood.
-* Features such as `age`, `euribor3m`, and `campaign` were among the **top predictors**.
-
----
-
-## 📸 APP PREVIEW
-
-![Streamlit UI](screenshots/sample_ui.png)
-*A user-friendly form to simulate new client entries and predict outcomes.*
 
 ---
 
